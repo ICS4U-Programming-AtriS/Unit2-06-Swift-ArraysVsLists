@@ -2,7 +2,7 @@
 //  Statistics.swift
 //
 //  Created by Atri Sarker
-//  Created on 2025-Month-Day
+//  Created on 2025-10-22
 //  Version 1.0
 //  Copyright (c) 2025 Atri Sarker. All rights reserved.
 //
@@ -18,10 +18,10 @@ func calcMean(_ arr: [Int]) -> Double {
     // Loop through the values of the array
     for num in arr {
         // Increment the sum
-        sum += num
+        sum += Double(num)
     }
     // Calculate the mean
-    let mean = sum / arr.count
+    let mean = sum / Double(arr.count)
     // Return the mean
     return mean
 }
@@ -31,16 +31,16 @@ func calcMedian(_ arr: [Int]) -> Double {
     // Get the size of the array
     let size = arr.count
     // Initialize variable for the median
-    var median = 0
+    var median = 0.0
     // Check if the array is evenly sized or oddly sized
-    if (size % 2 == 0) {
+    if size % 2 == 0 {
         // If the array has an even size.
         // Set the median to the average of the middle two elements.
-        median = (arr[size / 2] + arr[(size / 2) + 1]) / 2.0
+        median = Double(arr[size / 2] + arr[(size / 2) + 1]) / 2.0
     } else {
         // If the array has an odd size.
         // Set the median to the value of the middle element.
-        median = arr[size / 2]
+        median = Double(arr[size / 2])
     }
     // Return the median
     return median
@@ -49,7 +49,7 @@ func calcMedian(_ arr: [Int]) -> Double {
 // Function that finds and returns the mode[s] of an array.
 func calcMode(_ arr: [Int]) -> [Int] {
     // List to hold the mode[s]
-    var modesList = []
+    var modesList: [Int] = []
     // Variable for the population threshold to be a mode.
     var modePop = 0
     // Variable for the population of a current chain of numbers.
@@ -70,7 +70,7 @@ func calcMode(_ arr: [Int]) -> [Int] {
             // If so, make currentPop the new modePop
             modePop = currentPop
             // and clear the list
-            modesList.removeAll();
+            modesList.removeAll()
         }
         // Check if the population meets the current mode threshold.
         if currentPop == modePop {
@@ -83,7 +83,7 @@ func calcMode(_ arr: [Int]) -> [Int] {
 }
 
 // Loop through the arguments
-for inputFilePath in CommandLine.arguments {
+for inputFilePath in CommandLine.arguments[1...] {
     print("Processing " + inputFilePath)
     // Access the input file
     guard let inputFile = FileHandle(forReadingAtPath: inputFilePath) else {
@@ -128,7 +128,7 @@ for inputFilePath in CommandLine.arguments {
         // Calculate the mean, median, and mode
         let mean = calcMean(arrOfInts)
         let median = calcMedian(arrOfInts)
-        let mode = calcMode(arrOfInts)
+        let modes = calcMode(arrOfInts)
         // Display the mean, median, and mode
         print("The mean is: \(mean)")
         print("The median is: \(median)")
